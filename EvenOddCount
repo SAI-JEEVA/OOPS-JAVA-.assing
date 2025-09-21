@@ -1,0 +1,18 @@
+public class EvenOddCount {
+    public static void main(String[] args) {
+        int[] numbers = {12, 7, 5, 10, 8, 3, 15}; 
+        int even_count = 0;
+        int odd_count = 0;
+
+        for (int num : numbers) {
+            if (num % 2 == 0) {
+                even_count++;
+            } else {
+                odd_count++;
+            }
+        }
+
+        System.out.println("Count of even numbers: " + even_count);
+        System.out.println("Count of odd numbers: " + odd_count);
+    }
+}        

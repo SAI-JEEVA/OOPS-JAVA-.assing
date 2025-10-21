@@ -1,0 +1,52 @@
+package library1;
+//GenericPair.java
+public class GenericPair<K, V> {
+    private K key;
+    private V value;
+
+    // Constructor
+    public GenericPair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    // Getter for key
+    public K getKey() {
+        return key;
+    }
+
+    // Getter for value
+    public V getValue() {
+        return value;
+    }
+
+    // Setter for key
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    // Setter for value
+    public void setValue(V value) {
+        this.value = value;
+    }
+
+    // Display method
+    public void display() {
+        System.out.println("Key: " + key + " | Value: " + value);
+    }
+
+    // Main method to test the class
+    public static void main(String[] args) {
+        // Example 1: Integer - String
+        GenericPair<Integer, String> pair1 = new GenericPair<>(101, "Alice");
+        pair1.display();
+
+        // Example 2: String - Double
+        GenericPair<String, Double> pair2 = new GenericPair<>("Price", 99.99);
+        pair2.display();
+
+        // Example 3: Character - Boolean
+        GenericPair<Character, Boolean> pair3 = new GenericPair<>('A', true);
+        pair3.display();
+    }
+}

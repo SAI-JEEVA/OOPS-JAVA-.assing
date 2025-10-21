@@ -1,0 +1,173 @@
+package BloodDonationSystem;
+import java.util.*;
+
+class Person {
+    String name;
+    int age;
+    String contactNumber;
+
+    Person(String name, int age, String contactNumber) {
+        this.name = name;
+        this.age = age;
+        this.contactNumber = contactNumber;
+    }
+
+    void displayInfo() {
+        System.out.println("Name: " + name + ", Age: " + age + ", Contact: " + contactNumber);
+    }
+}
+
+class Donor extends Person {
+    String bloodGroup;
+    String lastDonationDate;
+
+    Donor(String name, int age, String contactNumber, String bloodGroup, String lastDonationDate) {
+        super(name, age, contactNumber);
+        this.bloodGroup = bloodGroup;
+        this.lastDonationDate = lastDonationDate;
+    }
+
+    void donateBlood() {
+        System.out.println(name + " has donated blood of group " + bloodGroup + " on " + lastDonationDate);
+    }
+
+    @Override
+    void displayInfo() {
+        super.displayInfo();
+        System.out.println("Blood Group: " + bloodGroup + ", Last Donation: " + lastDonationDate);
+    }
+}
+
+class Recipient extends Person {
+    String requiredBloodGroup;
+    String hospital;
+
+    Recipient(String name, int age, String contactNumber, String requiredBloodGroup, String hospital) {
+        super(name, age, contactNumber);
+        this.requiredBloodGroup = requiredBloodGroup;
+        this.hospital = hospital;
+    }
+
+    void requestBlood() {
+        System.out.println(name + " requires blood group " + requiredBloodGroup + " at " + hospital);
+    }
+
+    @Override
+    void displayInfo() {
+        super.displayInfo();
+        System.out.println("Required Blood Group: " + requiredBloodGroup + ", Hospital: " + hospital);
+    }
+}
+
+class BloodBank {
+    ArrayList<Donor> donors = new ArrayList<>();
+    ArrayList<Recipient> recipients = new ArrayList<>();
+
+    void addDonor(Donor donor) {
+        donors.add(donor);
+    }
+
+    void addRecipient(Recipient recipient) {
+        recipients.add(recipient);
+    }
+
+    void searchDonorByBloodGroup(String bloodGroup) {
+        boolean found = false;
+        for (Donor d : donors) {
+            if (d.bloodGroup.equalsIgnoreCase(bloodGroup)) {
+                d.displayInfo();
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No donor available for blood group " + bloodGroup);
+        }
+    }
+
+    void displayAllDonors() {
+        for (Donor d : donors) {
+            d.displayInfo();
+            System.out.println("-----------------");
+        }
+    }
+
+    void displayAllRecipients() {
+        for (Recipient r : recipients) {
+            r.displayInfo();
+            System.out.println("-----------------");
+        }
+    }
+}
+
+public class BloodDonationSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BloodBank bank = new BloodBank();
+
+        while (true) {
+            System.out.println("\n--- Blood Donation Management ---");
+            System.out.println("1. Add Donor");
+            System.out.println("2. Add Recipient");
+            System.out.println("3. Search Donor by Blood Group");
+            System.out.println("4. Display All Donors");
+            System.out.println("5. Display All Recipients");
+            System.out.println("6. Exit");
+            System.out.print("Choose an option: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Name: ");
+                    String dname = sc.nextLine();
+                    System.out.print("Enter Age: ");
+                    int dage = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter Contact: ");
+                    String dcontact = sc.nextLine();
+                    System.out.print("Enter Blood Group: ");
+                    String dblood = sc.nextLine();
+                    System.out.print("Enter Last Donation Date: ");
+                    String ddate = sc.nextLine();
+                    bank.addDonor(new Donor(dname, dage, dcontact, dblood, ddate));
+                    break;
+
+                case 2:
+                    System.out.print("Enter Name: ");
+                    String rname = sc.nextLine();
+                    System.out.print("Enter Age: ");
+                    int rage = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter Contact: ");
+                    String rcontact = sc.nextLine();
+                    System.out.print("Enter Required Blood Group: ");
+                    String rblood = sc.nextLine();
+                    System.out.print("Enter Hospital: ");
+                    String rhospital = sc.nextLine();
+                    bank.addRecipient(new Recipient(rname, rage, rcontact, rblood, rhospital));
+                    break;
+
+                case 3:
+                    System.out.print("Enter Blood Group to search: ");
+                    String bg = sc.nextLine();
+                    bank.searchDonorByBloodGroup(bg);
+                    break;
+
+                case 4:
+                    bank.displayAllDonors();
+                    break;
+
+                case 5:
+                    bank.displayAllRecipients();
+                    break;
+
+                case 6:
+                    System.out.println("Exiting...");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+}
